@@ -7,6 +7,7 @@ namespace ircclient
         public static void Main(string[] args)
         {
             int port;
+            bool streamOpen = true;
             string buf, nick, owner, server, chan, pass, command;
             char[] splitter = {':'};
             System.Net.Sockets.TcpClient sock = new System.Net.Sockets.TcpClient();
@@ -50,6 +51,13 @@ namespace ircclient
                     case "ping":
                         Console.WriteLine("fuckyeah");
                         break;
+
+                    case "lolmotherfuckersyousuck":
+                        streamOpen = false;
+                        input.Close();
+                        output.Close();
+                        sock.Close();
+                        return;
                 }
 
                 //Send pong reply to any ping messages
