@@ -4,7 +4,7 @@ using System.Collections;
 public class generateBOXESlol : MonoBehaviour
 {
     //Variables
-    public Transform ragingboner;
+    public Transform floor;
     public Transform camera;
     public Transform crate;
     public Transform wall;
@@ -23,8 +23,26 @@ public class generateBOXESlol : MonoBehaviour
     void Start()
     {
         //Spawn Floor
-        Transform Floor = (Transform)Instantiate(ragingboner, new Vector3(maxw/2, 0, maxh/2), Quaternion.identity);
+        Transform Floor = (Transform)Instantiate(floor, new Vector3(maxw / 2, 0, maxh / 2), Quaternion.identity);
         Floor.transform.localScale = new Vector3(maxw, 1, maxh);
+        Floor.renderer.material.mainTextureScale = new Vector2(maxh, maxw);
+
+        //Spawn Walls
+        Transform Wall1 = (Transform)Instantiate(wall, new Vector3(maxw, 1, maxh / 2), Quaternion.identity);
+        Transform Wall2 = (Transform)Instantiate(wall, new Vector3(0, 1, maxh / 2), Quaternion.identity);
+        Transform Wall3 = (Transform)Instantiate(wall, new Vector3(maxw/2, 1, maxh), Quaternion.identity);
+        Transform Wall4 = (Transform)Instantiate(wall, new Vector3(maxw / 2, 1, 0), Quaternion.identity);
+
+        Wall1.transform.localScale = new Vector3(1, 1, maxh-1);
+        Wall2.transform.localScale = new Vector3(1, 1, maxh-1);
+        Wall3.transform.localScale = new Vector3(maxw+1, 1, 1);
+        Wall4.transform.localScale = new Vector3(maxw+1, 1, 1);
+
+        Wall1.renderer.material.mainTextureScale = new Vector2(1, maxh-1);
+        Wall2.renderer.material.mainTextureScale = new Vector2(1, maxh-1);
+        Wall3.renderer.material.mainTextureScale = new Vector2(maxw-1, 1);
+        Wall4.renderer.material.mainTextureScale = new Vector2(maxw-1, 1);
+
         //Generate seed value to determine the spawn of the players
         spawnnumber = Random.Range(0, 4);
 
@@ -61,7 +79,7 @@ public class generateBOXESlol : MonoBehaviour
             {
                 if (i == 0 || k == 0 || i == maxh - 1 || k == maxw - 1)
                 {
-                    x[i, k] = 1;
+                    //x[i, k] = 1;
                 }
                 else
                 {
