@@ -15,7 +15,7 @@ namespace ircclient
             System.IO.TextWriter output;
 
             //Get nick, owner, server, port, and channel from user
-            pass = "oauth:fdu3pr6qgiqrd01o4kkiaa7crmv4t0c";
+            pass = "oauth:qi7ukj6jfg0qudzxg08eso6gr3du4bw";
             nick = "lightzors";
             owner = "lightzors";
             server = "irc.twitch.tv";
@@ -52,7 +52,7 @@ namespace ircclient
                         Console.WriteLine("fuckyeah");
                         break;
 
-                    case "lolmotherfuckersyousuck":
+                    case "quit":
                         streamOpen = false;
                         input.Close();
                         output.Close();
