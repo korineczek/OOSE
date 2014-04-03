@@ -3,9 +3,10 @@ public class Job : ThreadedJob
 {
     public string action;
     public string commandFromOutside;
+    public bool democracy;
+    public int[] optionHistogram = { 0, 0, 0, 0 };
 
     public Job(){
-        action = "x";
     }
 
     protected override void ThreadFunction()
@@ -47,6 +48,7 @@ public class Job : ThreadedJob
         for (buf = input.ReadLine(); ; buf = input.ReadLine())
         {
             command = buf.Split(splitter)[buf.Split(splitter).Length - 1];
+            action = "default";
             //Display received irc message
             Console.WriteLine(buf);
 
@@ -54,18 +56,52 @@ public class Job : ThreadedJob
             {
                 case "bomb":
                     action = "bomb";
+                    
                     break;
                 case "up":
                     action = "up";
+                   
                     break;
                 case "down":
                     action = "down";
+                    
                     break;
                 case "left":
                     action = "left";
+                    
                     break;
                 case "right":
                     action = "right";
+                    
+                    break;
+
+                case "option1":
+                    if (democracy == true)
+                    {
+                        optionHistogram[0] += 1;
+                    
+                    }
+                    break;
+                case "option2":
+                    if (democracy == true)
+                    {
+                        optionHistogram[1] += 1;
+
+                    }
+                    break;
+                case "option3":
+                    if (democracy == true)
+                    {
+                        optionHistogram[2] += 1;
+
+                    }
+                    break;
+                case "option4":
+                    if (democracy == true)
+                    {
+                        optionHistogram[3] += 1;
+
+                    }
                     break;
 
                 case "quit":
