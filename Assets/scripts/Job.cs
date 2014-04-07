@@ -1,10 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+
 public class Job : ThreadedJob
 {
-    public string action;
+    // Variables
+
+    // Command Control
+    public List<string> action = new List<string>();
+    public string temp;
     public string commandFromOutside;
     public bool democracy;
     public int[] optionHistogram = { 0, 0, 0, 0 };
+
+    // TCP configuration, if not working, return it to ThreadFunction()
+    public System.Net.Sockets.TcpClient sock = new System.Net.Sockets.TcpClient();
+    public System.IO.TextReader input;
+    public System.IO.TextWriter output;
 
     public Job(){
     }
@@ -15,9 +26,7 @@ public class Job : ThreadedJob
         int port;
         string buf, nick, owner, server, chan, pass, command;
         char[] splitter = { ':' };
-        System.Net.Sockets.TcpClient sock = new System.Net.Sockets.TcpClient();
-        System.IO.TextReader input;
-        System.IO.TextWriter output;
+       
 
         //Get nick, owner, server, port, and channel from user
         pass = "oauth:qi7ukj6jfg0qudzxg08eso6gr3du4bw";
@@ -48,30 +57,29 @@ public class Job : ThreadedJob
         for (buf = input.ReadLine(); ; buf = input.ReadLine())
         {
             command = buf.Split(splitter)[buf.Split(splitter).Length - 1];
-            action = "default";
             //Display received irc message
             Console.WriteLine(buf);
 
             switch (command)
             {
                 case "bomb":
-                    action = "bomb";
+                    temp = "bomb";
                     
                     break;
                 case "up":
-                    action = "up";
+                    temp = "up";
                    
                     break;
                 case "down":
-                    action = "down";
+                    temp = "down";
                     
                     break;
                 case "left":
-                    action = "left";
+                    temp = "left";
                     
                     break;
                 case "right":
-                    action = "right";
+                    temp = "right";
                     
                     break;
 
@@ -110,20 +118,27 @@ public class Job : ThreadedJob
                     sock.Close();
                     return;
             }
-            if (commandFromOutside == "quit")
-            {
-                input.Close();
-                output.Close();
-                sock.Close();
-                return;
-            }
 
-            //Send pong reply to any ping messages
+            // Add selected option to list, if there is too many options, the oldest one gets deleted to make space
+            if (action.Count < 6)
+            {
+                action.Add(temp);
+            }
+            else
+            {
+                action.RemoveAt(0);
+                action.Add(temp);
+            }
+            
+           
+            
+            
+            // Send pong reply to any ping messages
             if (buf.StartsWith("PING"))
             {
                 Console.WriteLine("ping");
             }
-            //{ output.Write(buf.Replace("PING", "PONG") + "\r\n"); output.Flush(); }
+            // { output.Write(buf.Replace("PING", "PONG") + "\r\n"); output.Flush(); }
             if (buf[0] != ':') continue;
 
             /* IRC commands come in one of these formats:
@@ -143,6 +158,8 @@ public class Job : ThreadedJob
         }
 
     }
+
+
     protected override void OnFinished()
     {
 
