@@ -7,8 +7,7 @@ public class Job : ThreadedJob
 
     // Command Control
     public List<string> action = new List<string>();
-    public string temp;
-    public string commandFromOutside;
+    public string temp, command;
     public bool democracy;
     public int[] optionHistogram = { 0, 0, 0, 0 };
 
@@ -24,7 +23,7 @@ public class Job : ThreadedJob
     {
 
         int port;
-        string buf, nick, owner, server, chan, pass, command;
+        string buf, nick, owner, server, chan, pass;
         char[] splitter = { ':' };
        
 
@@ -118,9 +117,10 @@ public class Job : ThreadedJob
                     sock.Close();
                     return;
             }
+            
 
             // Add selected option to list, if there is too many options, the oldest one gets deleted to make space
-            if (action.Count < 6)
+            if (action.Count < 6 )
             {
                 action.Add(temp);
             }

@@ -8,6 +8,9 @@ public class IRChandler : MonoBehaviour
 
     // Variable declaration
     Job myJob;
+
+    //public Movement playerControls;
+
     public string action;
 
     // Democracy mode
@@ -15,8 +18,14 @@ public class IRChandler : MonoBehaviour
     float democracyEnd;
     float democracyDuration;
 
+   
+    
+
     void Start()
     {
+
+        
+
         // Define and start second thread containing the IRC bot.
         myJob = new Job();
         myJob.Start();
@@ -31,9 +40,9 @@ public class IRChandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(myJob.democracy);
-
+        Debug.Log(myJob.action.Count);
+        Debug.Log(myJob.temp);
+        Debug.Log(myJob.command);
         // Run democracy
 
         // Democracy startup sequence
@@ -84,6 +93,26 @@ public class IRChandler : MonoBehaviour
             StopAllCoroutines();
             Debug.Log("DISCONNECTED");
         }
+        if (Input.GetKeyUp("w"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player1").GetComponent<Movement>().moveUp();
+        }
+        if (Input.GetKeyUp("s"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player1").GetComponent<Movement>().moveDown();
+        }
+        if (Input.GetKeyUp("a"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player1").GetComponent<Movement>().moveLeft();
+        }
+        if (Input.GetKeyUp("d"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player1").GetComponent<Movement>().moveRight();
+        }
 
     }
 
@@ -93,33 +122,48 @@ public class IRChandler : MonoBehaviour
         {
             if (myJob.action.Count > 0)
             {
-                switch (myJob.action[Random.Range(0, myJob.action.Count)])
+               
+                string debug = myJob.action[Random.Range(0, myJob.action.Count)];
+                
+                switch (debug)
                 {
                     case "bomb":
                         Debug.Log("Bomb down");
-
+                        
                         break;
                     case "up":
                         Debug.Log("Moved up");
-
+                        GameObject.FindWithTag("Player1").GetComponent<Movement>().moveUp();
+                        
                         break;
                     case "down":
                         Debug.Log("Moved down");
-
+                        GameObject.FindWithTag("Player1").GetComponent<Movement>().moveDown();
+                        
                         break;
                     case "left":
                         Debug.Log("Moved left");
-
+                        GameObject.FindWithTag("Player1").GetComponent<Movement>().moveLeft();
+                    
                         break;
                     case "right":
                         Debug.Log("Moved right");
+                        GameObject.FindWithTag("Player1").GetComponent<Movement>().moveRight();
+                        
                         break;
                     default:
                         Debug.Log("NO INPUT");
                         break;
                 }
+                for (int i = 0; i < myJob.action.Count; i++)
+                {
+                    Debug.Log("clearing " + myJob.action[i]);
+                    myJob.action.RemoveAt(i);
+                    
+                }
+                myJob.command = null;
+                myJob.temp = null;
             }
-            myJob.action = new List<string>();
             yield return new WaitForSeconds(5.0f);
         }
     }

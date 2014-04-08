@@ -20,7 +20,7 @@ public class generateBOXESlol : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         //Spawn Floor
         Transform Floor = (Transform)Instantiate(floor, new Vector3(maxw / 2, 0, maxh / 2), Quaternion.identity);
