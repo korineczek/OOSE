@@ -40,9 +40,6 @@ public class IRChandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(myJob.action.Count);
-        Debug.Log(myJob.temp);
-        Debug.Log(myJob.command);
         // Run democracy
 
         // Democracy startup sequence
@@ -152,12 +149,12 @@ public class IRChandler : MonoBehaviour
                         
                         break;
                     default:
-                        Debug.Log("NO INPUT");
+                         // Debug.Log("NO INPUT");
                         break;
                 }
                 for (int i = 0; i < myJob.action.Count; i++)
                 {
-                    Debug.Log("clearing " + myJob.action[i]);
+                   // Debug.Log("clearing " + myJob.action[i]);
                     myJob.action.RemoveAt(i);
                     
                 }

@@ -1,18 +1,30 @@
----08/04/2014--v0.1--
-Changelog------------
+09/04/2014 - v0.2 - CURRENT VERSION
+Changelog
+---------------------
+
+Second playable version
+
+---------------------
+MAJOR
+---------------------
+-Added collision system, it is now impossible to move through obstacles
+
+ 
+08/04/2014 - v0.1
+Changelog
 ---------------------
 
 First playable version, Twitch chat integration working as intended.
 
 ---------------------
-MAJOR----------------
+MAJOR
 ---------------------
 -Player 1 is now controllable via chat online
 
 -Added controls include - Movement (up, down, left, right)
 
 ---------------------
-MINOR----------------
+MINOR
 ---------------------
 -Fixed pseudo-democracy bug
 
