@@ -7,7 +7,11 @@ public class Job : ThreadedJob
 
     // Command Control
     public List<string> action = new List<string>();
-    public string temp, command;
+    public List<string> teamRed = new List<string>();
+    public List<string> teamBlue = new List<string>();
+
+    public string temp, nickname, message;
+    public string command, name;
     public bool democracy;
     public int[] optionHistogram = { 0, 0, 0, 0 };
 
@@ -25,6 +29,7 @@ public class Job : ThreadedJob
         int port;
         string buf, nick, owner, server, chan, pass;
         char[] splitter = { ':' };
+        char[] nameSplitter = { '!' };
        
 
         //Get nick, owner, server, port, and channel from user
@@ -55,7 +60,11 @@ public class Job : ThreadedJob
         //Process each line received from irc server
         for (buf = input.ReadLine(); ; buf = input.ReadLine())
         {
+            // Get the command from IRC
+            message = buf;
             command = buf.Split(splitter)[buf.Split(splitter).Length - 1];
+            name = buf.Split(nameSplitter)[0];
+            
             //Display received irc message
             Console.WriteLine(buf);
 
