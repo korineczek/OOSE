@@ -29,7 +29,7 @@ public class IRChandler : MonoBehaviour
         // Define and start second thread containing the IRC bot.
         myJob = new Job();
         myJob.Start();
-
+        
         // Set Democracy duration
         democracyDuration = 10.0f;
 
