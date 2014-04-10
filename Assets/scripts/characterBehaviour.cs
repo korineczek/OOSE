@@ -24,19 +24,17 @@ public class characterBehaviour : MonoBehaviour {
 
 	void Update()
 	{
-		triggerBomb ();
+		//triggerBomb ();
 	}
 
 
 	//Code for triggering spawn
-	void triggerBomb()
+	public void triggerBomb()
 	{
 			if (bombCount > 0)
 		{
-			if (Input.GetKeyDown ("space")) 
-			{
+			
 				StartCoroutine(currentBombs());
-			}
 			
 		}
 	}

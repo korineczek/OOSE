@@ -110,7 +110,11 @@ public class IRChandler : MonoBehaviour
             //Debug.Log("Moving Up");
             GameObject.FindWithTag("Player1").GetComponent<Movement>().moveRight();
         }
-
+        if (Input.GetKeyUp("space"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player1").GetComponent<characterBehaviour>().triggerBomb();
+        }
     }
 
     IEnumerator Execute()
@@ -126,7 +130,7 @@ public class IRChandler : MonoBehaviour
                 {
                     case "bomb":
                         Debug.Log("Bomb down");
-                        
+                        GameObject.FindWithTag("Player1").GetComponent<characterBehaviour>().triggerBomb();
                         break;
                     case "up":
                         Debug.Log("Moved up");
