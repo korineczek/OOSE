@@ -40,7 +40,11 @@ public class IRChandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(myJob.name +" "+myJob.command);
+        Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
+        Debug.Log(myJob.rawData);
+        //Debug.Log(myJob.name +" "+myJob.command);
+        
+        
         // Run democracy
         // Democracy startup sequence
         if (Input.GetKeyUp("p") && myJob.democracy == false)
@@ -121,10 +125,10 @@ public class IRChandler : MonoBehaviour
     {
         while (true)
         {
-            if (myJob.action.Count > 0)
+            if (myJob.redAction.Count > 0)
             {
                
-                string debug = myJob.action[Random.Range(0, myJob.action.Count)];
+                string debug = myJob.redAction[Random.Range(0, myJob.redAction.Count)];
                 
                 switch (debug)
                 {
@@ -156,14 +160,14 @@ public class IRChandler : MonoBehaviour
                          // Debug.Log("NO INPUT");
                         break;
                 }
-                for (int i = 0; i < myJob.action.Count; i++)
+                for (int i = 0; i < myJob.redAction.Count; i++)
                 {
                    // Debug.Log("clearing " + myJob.action[i]);
-                    myJob.action.RemoveAt(i);
+                    myJob.redAction.RemoveAt(i);
                     
                 }
                 myJob.command = null;
-                myJob.temp = null;
+                myJob.redTemp = null;
             }
             yield return new WaitForSeconds(5.0f);
         }

@@ -1,16 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 
+// Declare player class
+public class Player
+{
+    public string name;
+    public int team;
+
+    // Player constructor
+    public Player(string id, int allegiance)
+    {
+        name = id;
+        team = allegiance;
+    }
+}
+
+public class Command
+{
+    public string command;
+    public int team;
+}
+
+
 public class Job : ThreadedJob
 {
     // Variables
+    public int numberofredplayers = 0;
+    public int numberofblueplayers = 0;
 
     // Command Control
-    public List<string> action = new List<string>();
-    public List<string> teamRed = new List<string>();
-    public List<string> teamBlue = new List<string>();
+    public Command playerInput = new Command();
+    public string rawData;
+    public List<string> redAction = new List<string>();
+    public List<string> blueAction = new List<string>();
 
-    public string temp, nickname, message;
+    // Team Control
+    public List<Player> teamRed = new List<Player>();
+    public List<Player> teamBlue = new List<Player>();
+    public Player isInTeamRed;
+    public Player isInTeamBlue;
+
+    public string redTemp, blueTemp, nickname, message;
     public string command, name;
     public bool democracy;
     public int[] optionHistogram = { 0, 0, 0, 0 };
@@ -20,7 +50,8 @@ public class Job : ThreadedJob
     public System.IO.TextReader input;
     public System.IO.TextWriter output;
 
-    public Job(){
+    public Job()
+    {
     }
 
     protected override void ThreadFunction()
@@ -30,7 +61,7 @@ public class Job : ThreadedJob
         string buf, nick, owner, server, chan, pass;
         char[] splitter = { ':' };
         char[] nameSplitter = { '!' };
-       
+
 
         //Get nick, owner, server, port, and channel from user
         pass = "oauth:qi7ukj6jfg0qudzxg08eso6gr3du4bw";
@@ -60,88 +91,204 @@ public class Job : ThreadedJob
         //Process each line received from irc server
         for (buf = input.ReadLine(); ; buf = input.ReadLine())
         {
-            // Get the command from IRC
-            message = buf;
-            command = buf.Split(splitter)[buf.Split(splitter).Length - 1];
+            // Get sender name and command from IRC
             name = buf.Split(nameSplitter)[0];
-            
-            //Display received irc message
-            Console.WriteLine(buf);
+            rawData = buf.Split(splitter)[buf.Split(splitter).Length - 1];
 
-            switch (command)
+            // Search player lists to identify player allegiance
+            isInTeamRed = teamRed.Find(item => item.name == name);
+           
+            if (rawData == "joinred" || rawData == "joinblue")
             {
-                case "bomb":
-                    temp = "bomb";
-                    
-                    break;
-                case "up":
-                    temp = "up";
-                   
-                    break;
-                case "down":
-                    temp = "down";
-                    
-                    break;
-                case "left":
-                    temp = "left";
-                    
-                    break;
-                case "right":
-                    temp = "right";
-                    
-                    break;
-
-                case "option1":
-                    if (democracy == true)
-                    {
-                        optionHistogram[0] += 1;
-                    
-                    }
-                    break;
-                case "option2":
-                    if (democracy == true)
-                    {
-                        optionHistogram[1] += 1;
-
-                    }
-                    break;
-                case "option3":
-                    if (democracy == true)
-                    {
-                        optionHistogram[2] += 1;
-
-                    }
-                    break;
-                case "option4":
-                    if (democracy == true)
-                    {
-                        optionHistogram[3] += 1;
-
-                    }
-                    break;
-
-                case "quit":
-                    input.Close();
-                    output.Close();
-                    sock.Close();
-                    return;
+                playerInput.command = rawData;
             }
-            
-
-            // Add selected option to list, if there is too many options, the oldest one gets deleted to make space
-            if (action.Count < 6 )
+            else if (isInTeamRed == null)
             {
-                action.Add(temp);
+                isInTeamBlue = teamBlue.Find(item => item.name == name);
+                
+                if(isInTeamBlue != null){
+                    playerInput.team = 1;
+                    playerInput.command = rawData;
+                }
+
+                
+            }
+            else if (isInTeamRed != null)
+            {
+                playerInput.team = 0;
+                playerInput.command = rawData;
             }
             else
             {
-                action.RemoveAt(0);
-                action.Add(temp);
+                    playerInput.command = null;
             }
+
             
-           
-            
-            
+
+
+            if (playerInput.command != null)
+            {
+                switch (playerInput.command)
+                {
+                    case "bomb":
+                        if (playerInput.team == 0)
+                        {
+                            redTemp = "bomb";
+                        }
+                        else if (playerInput.team == 1)
+                        {
+                            blueTemp = "bomb";
+                        }
+
+                        break;
+                    case "up":
+                        if (playerInput.team == 0)
+                        {
+                            redTemp = "up";
+                        }
+                        else if (playerInput.team == 1)
+                        {
+                            blueTemp = "up";
+                        }
+
+                        break;
+                    case "down":
+                        if (playerInput.team == 0)
+                        {
+                            redTemp = "down";
+                        }
+                        else if (playerInput.team == 1)
+                        {
+                            blueTemp = "down";
+                        }
+                        break;
+                    case "left":
+                        if (playerInput.team == 0)
+                        {
+                            redTemp = "left";
+                        }
+                        else if (playerInput.team == 1)
+                        {
+                            blueTemp = "left";
+                        }
+
+                        break;
+                    case "right":
+                        if (playerInput.team == 0)
+                        {
+                            redTemp = "right";
+                        }
+                        else if (playerInput.team == 1)
+                        {
+                            blueTemp = "right";
+                        }
+
+                        break;
+
+                    case "option1":
+                        if (democracy == true)
+                        {
+                            optionHistogram[0] += 1;
+
+                        }
+                        break;
+                    case "option2":
+                        if (democracy == true)
+                        {
+                            optionHistogram[1] += 1;
+
+                        }
+                        break;
+                    case "option3":
+                        if (democracy == true)
+                        {
+                            optionHistogram[2] += 1;
+
+                        }
+                        break;
+                    case "option4":
+                        if (democracy == true)
+                        {
+                            optionHistogram[3] += 1;
+
+                        }
+                        break;
+
+                    // Join the red team
+                    case "joinred":
+
+                        isInTeamBlue = teamBlue.Find(item => item.name == name);
+                        if (isInTeamBlue != null)
+                        {
+                            teamBlue.Remove(isInTeamBlue);
+                            isInTeamBlue = null;
+                            numberofblueplayers--;
+                        }
+
+                        isInTeamRed = teamRed.Find(item => item.name == name);
+                        if (isInTeamRed == null)
+                        {
+                            teamRed.Add(new Player(name, 0));
+                            isInTeamRed = null;
+                            numberofredplayers++;
+                        }
+                        break;
+
+                    // Join the blue team
+                    case "joinblue":
+                        isInTeamRed = teamRed.Find(item => item.name == name);
+                        if (isInTeamRed != null)
+                        {
+                            teamRed.Remove(isInTeamRed);
+                            isInTeamRed = null;
+                            numberofredplayers--;
+                        }
+                        isInTeamBlue = teamBlue.Find(item => item.name == name);
+                        if (isInTeamBlue == null)
+                        {
+                            teamBlue.Add(new Player(name, 1));
+                            isInTeamBlue = null;
+                            numberofblueplayers++;
+                        }
+                        break;
+
+
+                    // Quit command to disconnect IRC via chat
+                    case "quit":
+                        input.Close();
+                        output.Close();
+                        sock.Close();
+                        return;
+                }
+            }
+
+
+            // Add selected option to list, if there is too many options, the oldest one gets deleted to make space
+            // Team Red
+            if (redAction.Count < 6)
+            {
+                redAction.Add(redTemp);
+            }
+            else
+            {
+                redAction.RemoveAt(0);
+                redAction.Add(redTemp);
+            }
+
+            // Team Blue
+            if (blueAction.Count < 6)
+            {
+                blueAction.Add(blueTemp);
+            }
+            else
+            {
+                blueAction.RemoveAt(0);
+                blueAction.Add(blueTemp);
+            }
+
+
+
+
             // Send pong reply to any ping messages
             if (buf.StartsWith("PING"))
             {

@@ -1,4 +1,23 @@
-09/04/2014 - v0.2 - CURRENT VERSION
+11/04/2014 - v0.3 - CURRENT VERSION
+Changelog
+---------------------
+
+Third playable version
+
+---------------------
+MAJOR
+---------------------
+-Added team system
+-Player now have to pick a team  prior to being able to participate in the game
+-Their team picks are reflected in the two team lists that are the players added to.
+-Commands are now compared with the list to see which team are they playing for.
+
+---------------------
+MINOR
+---------------------
+-Irrelevant commands will not be passed to the main command switch anymore.
+
+09/04/2014 - v0.2
 Changelog
 ---------------------
 
