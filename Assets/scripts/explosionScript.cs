@@ -33,7 +33,7 @@ public class explosionScript : MonoBehaviour {
 		if(col.gameObject.tag == "DestructableCube")
 		{
 			Destroy(col.gameObject);
-            //Destroy(gameObject);
+            Destroy(gameObject);
 		}
 		if(col.gameObject.tag == "Wall")
 		{

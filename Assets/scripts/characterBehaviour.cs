@@ -10,10 +10,8 @@ public class characterBehaviour : MonoBehaviour {
 
 	public Rigidbody bombPrefab;
     public GameObject explosionPrefab;
-    private GameObject cloneUp;
-    private GameObject cloneDown;
-    private GameObject cloneRight;
-    private GameObject cloneLeft; 
+    private GameObject cloneUp, cloneDown, cloneRight, cloneLeft;
+    private bool test, test1, test2, test3;
 
 	void start()
 	{
@@ -29,7 +27,7 @@ public class characterBehaviour : MonoBehaviour {
         cloneUp.GetComponent<explosionScript>().explodeUp();
         cloneDown.GetComponent<explosionScript>().explodeDown();
         cloneRight.GetComponent<explosionScript>().explodeRight();
-        //cloneLeft.GetComponent<explosionScript>().explodeLeft();
+        cloneLeft.GetComponent<explosionScript>().explodeLeft();
 	}
 
 
@@ -55,7 +53,7 @@ public class characterBehaviour : MonoBehaviour {
         cloneUp = Instantiate(explosionPrefab, tempPos+new Vector3(0,0,1), bombPrefab.rotation) as GameObject;
         cloneDown = Instantiate(explosionPrefab, tempPos+new Vector3(0,0,-1), bombPrefab.rotation) as GameObject;
         cloneRight = Instantiate(explosionPrefab, tempPos+new Vector3(1,0,0), bombPrefab.rotation) as GameObject;
-        //cloneLeft = Instantiate(explosionPrefab, tempPos+new Vector3(-1,0,0), bombPrefab.rotation) as GameObject;
+        cloneLeft = Instantiate(explosionPrefab, tempPos+new Vector3(-1,0,0), bombPrefab.rotation) as GameObject;
 		bombCount = bombCount+1;
 		SetBombCountText();
 
