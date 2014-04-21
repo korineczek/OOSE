@@ -18,7 +18,8 @@ public class IRChandler : MonoBehaviour
     float democracyEnd;
     float democracyDuration;
 
-   
+    // Turn Counter
+    public int currentTurn;
     
 
     void Start()
@@ -35,13 +36,17 @@ public class IRChandler : MonoBehaviour
 
         // Start execution routine
         StartCoroutine("Execute");
+
+        // Set turn count to 0
+        currentTurn = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
-        Debug.Log(myJob.rawData);
+        Debug.Log(currentTurn);
+        //Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
+        //Debug.Log(myJob.rawData);
         //Debug.Log(myJob.name +" "+myJob.command);
         
         
@@ -85,7 +90,7 @@ public class IRChandler : MonoBehaviour
             StartCoroutine("Execute");
         }
 
-        // TEST - IN CLIENT TCP DISCONNECT
+        // IN CLIENT TCP DISCONNECT
         if (Input.GetKeyUp("o"))
         {
             myJob.Abort();
@@ -128,9 +133,11 @@ public class IRChandler : MonoBehaviour
             if (myJob.redAction.Count > 0)
             {
                
-                string debug = myJob.redAction[Random.Range(0, myJob.redAction.Count)];
+                string redAction = myJob.redAction[Random.Range(0, myJob.redAction.Count)];
+                string blueAction = myJob.blueAction[Random.Range(0, myJob.redAction.Count)];
                 
-                switch (debug)
+                // Red Action Command Execution
+                switch (redAction)
                 {
                     case "bomb":
                         Debug.Log("Bomb down");
@@ -160,22 +167,69 @@ public class IRChandler : MonoBehaviour
                          // Debug.Log("NO INPUT");
                         break;
                 }
+
+                // Clear RedCommand Cache
                 for (int i = 0; i < myJob.redAction.Count; i++)
                 {
                    // Debug.Log("clearing " + myJob.action[i]);
                     myJob.redAction.RemoveAt(i);
                     
                 }
+
+                // MYJOB.COMMAND CAN POTENTALLY BE DELETED, NEED TESTING!
                 myJob.command = null;
                 myJob.redTemp = null;
+
+            // Blue Action Command Execution
+            switch (blueAction)
+                {
+                    case "bomb":
+                        Debug.Log("Bomb down");
+                        GameObject.FindWithTag("Player2").GetComponent<characterBehaviour>().triggerBomb();
+                        break;
+                    case "up":
+                        Debug.Log("Moved up");
+                        GameObject.FindWithTag("Player2").GetComponent<Movement>().moveUp();
+                        
+                        break;
+                    case "down":
+                        Debug.Log("Moved down");
+                        GameObject.FindWithTag("Player2").GetComponent<Movement>().moveDown();
+                        
+                        break;
+                    case "left":
+                        Debug.Log("Moved left");
+                        GameObject.FindWithTag("Player2").GetComponent<Movement>().moveLeft();
+                    
+                        break;
+                    case "right":
+                        Debug.Log("Moved right");
+                        GameObject.FindWithTag("Player2").GetComponent<Movement>().moveRight();
+                        
+                        break;
+                    default:
+                         // Debug.Log("NO INPUT");
+                        break;
+                }
+                for (int i = 0; i < myJob.blueAction.Count; i++)
+                {
+                   // Debug.Log("clearing " + myJob.action[i]);
+                    myJob.blueAction.RemoveAt(i);
+                    
+                }
+                myJob.command = null;
+                myJob.blueTemp = null;
             }
+
+            // Increment turn and wait 5s to end the turn
+            currentTurn++;
             yield return new WaitForSeconds(5.0f);
         }
     }
 
 
     // Democracy result function
-    int calculateDemocracy(int[] data)
+    public int calculateDemocracy(int[] data)
     {
         int temp = 0;
         int result = 0;
