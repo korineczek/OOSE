@@ -44,7 +44,6 @@ public class IRChandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentTurn);
         //Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
         //Debug.Log(myJob.rawData);
         //Debug.Log(myJob.name +" "+myJob.command);

@@ -26,12 +26,12 @@ public class characterBehaviour : MonoBehaviour {
 	void Update()
 	{
 		//triggerBomb ();
-
+        
 		cloneDown.GetComponent<explosionScript>().explodeDown();
 		cloneUp.GetComponent<explosionScript>().explodeUp();
 		cloneRight.GetComponent<explosionScript>().explodeRight();
 		cloneLeft.GetComponent<explosionScript>().explodeLeft();
-
+        
 	
 	}
 
