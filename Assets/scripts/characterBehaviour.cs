@@ -7,11 +7,13 @@ public class characterBehaviour : MonoBehaviour {
 	private int bombCount=1;
 	public GUIText rangeCounterText;
 	public int rangeCount=2;
+	public Vector3 tempPos;
+	public bool test1;
 
 	public Rigidbody bombPrefab;
-    public GameObject explosionPrefab;
+	public GameObject explosionPrefab;
     private GameObject cloneUp, cloneDown, cloneRight, cloneLeft;
-    private bool test, test1, test2, test3;
+   // private bool test, test1, test2, test3;
 
 	void start()
 	{
@@ -24,10 +26,13 @@ public class characterBehaviour : MonoBehaviour {
 	void Update()
 	{
 		//triggerBomb ();
-        cloneUp.GetComponent<explosionScript>().explodeUp();
-        cloneDown.GetComponent<explosionScript>().explodeDown();
-        cloneRight.GetComponent<explosionScript>().explodeRight();
-        cloneLeft.GetComponent<explosionScript>().explodeLeft();
+
+		cloneDown.GetComponent<explosionScript>().explodeDown();
+		cloneUp.GetComponent<explosionScript>().explodeUp();
+		cloneRight.GetComponent<explosionScript>().explodeRight();
+		cloneLeft.GetComponent<explosionScript>().explodeLeft();
+
+	
 	}
 
 
@@ -46,14 +51,14 @@ public class characterBehaviour : MonoBehaviour {
 	IEnumerator currentBombs()
 	{
 		Instantiate (bombPrefab, transform.position, transform.rotation);
-		Vector3 tempPos = transform.position;
+		tempPos = transform.position;
 		bombCount = bombCount -1;
 		SetBombCountText();
 		yield return new WaitForSeconds(3);
-        cloneUp = Instantiate(explosionPrefab, tempPos+new Vector3(0,0,1), bombPrefab.rotation) as GameObject;
-        cloneDown = Instantiate(explosionPrefab, tempPos+new Vector3(0,0,-1), bombPrefab.rotation) as GameObject;
-        cloneRight = Instantiate(explosionPrefab, tempPos+new Vector3(1,0,0), bombPrefab.rotation) as GameObject;
-        cloneLeft = Instantiate(explosionPrefab, tempPos+new Vector3(-1,0,0), bombPrefab.rotation) as GameObject;
+		cloneUp = Instantiate (explosionPrefab, tempPos + new Vector3 (0, 0, 1), bombPrefab.rotation) as GameObject;
+		cloneDown = Instantiate (explosionPrefab, tempPos + new Vector3 (0, 0, -1), bombPrefab.rotation) as GameObject;
+		cloneRight = Instantiate (explosionPrefab, tempPos + new Vector3 (1, 0, 0), bombPrefab.rotation) as GameObject;
+		cloneLeft = Instantiate (explosionPrefab, tempPos + new Vector3 (-1, 0, 0), bombPrefab.rotation) as GameObject;
 		bombCount = bombCount+1;
 		SetBombCountText();
 
@@ -73,6 +78,14 @@ public class characterBehaviour : MonoBehaviour {
 						SetRangeCountText ();
 				}
 	}
+
+	void test()
+	{
+						
+						
+			
+		}
+
 	//Functon for Bomb GUI
 	void SetBombCountText ()
 	{

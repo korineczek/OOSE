@@ -20,14 +20,20 @@ public class bombScript : MonoBehaviour {
 	}
     void Update()
     {
-        if (currentTurn == explosionTurn)
+		StartCoroutine(destroy());
+      /*  if (currentTurn == explosionTurn)
         {
             Destroy(gameObject);
-        }
+        }*/
     }
+	IEnumerator destroy()
+	{
+		if (currentTurn == explosionTurn)
+		{
+			yield return new WaitForSeconds(3);
+			Destroy(gameObject);
+		}
+	}
 }
 
 
-
-
-	

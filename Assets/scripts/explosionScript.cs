@@ -21,23 +21,25 @@ public class explosionScript : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
-        //explodeRight();
     }
 	//Destroy Cubes and Player on Collision
 	void OnCollisionEnter (Collision col)
 	{
 		if(col.gameObject.tag == "Player1")
 		{
-			Destroy(col.gameObject);
+			Destroy(col.gameObject,1);
 		}
 		if(col.gameObject.tag == "DestructableCube")
 		{
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
+			rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
 			Destroy(col.gameObject);
-            Destroy(gameObject);
+            Destroy(gameObject,1);
 		}
 		if(col.gameObject.tag == "Wall")
 		{
-			Destroy(gameObject);
+			Destroy(gameObject,1);
 		}
 	}
     public void explodeRight()
