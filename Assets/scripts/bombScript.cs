@@ -47,10 +47,10 @@ public class bombScript : MonoBehaviour
             if (up == true)
                 i = range;
 
-            if (i == 2 && up2 == true)
+            else if (i == 2 && up2 == true)
                 i = range;
 
-            if(i==3 && up3 == true)
+            else if(i==3 && up3 == true)
                 i=range;
         }
 
@@ -60,36 +60,36 @@ public class bombScript : MonoBehaviour
             if (down == true)
                 j = range;
 
-            if (j == 2 && down2 == true)
+            else if (j == 2 && down2 == true)
                 j = range;
 
-            if (j == 3 && down3 == true)
+            else if (j == 3 && down3 == true)
                 j = range;
         }
 
-        for (int k = 1; k < 3; k++)
+        for (int k = 1; k < range; k++)
         {
             Instantiate(explosionPrefab, transform.position + new Vector3(k, 0, 0), transform.rotation);
             if (right == true)
                 k = range;
 
-            if (k == 2 && right2 == true)
+            else if (k == 2 && right2 == true)
                 k = range;
 
-            if (k == 3 && right3 == true)
+            else if (k == 3 && right3 == true)
                 k = range;
         }
 
-        for (int l = 1; l < 3; l++)
+        for (int l = 1; l < range; l++)
         {
             Instantiate(explosionPrefab, transform.position + new Vector3(-l, 0, 0), transform.rotation);
             if (left == true)
                 l = range;
 
-            if (l == 2 && left2 == true)
+            else if (l == 2 && left2 == true)
                 l = range;
                 
-            if (l == 3 && left3 == true)
+            else if (l == 3 && left3 == true)
                 l = range;
         }
     }
