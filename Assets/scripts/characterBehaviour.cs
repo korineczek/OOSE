@@ -4,7 +4,7 @@ using System.Collections;
 public class characterBehaviour : MonoBehaviour {
 
 	public GUIText bombCountText;
-	private int bombCount=1;
+	public int bombCount=1;
 	public GUIText rangeCounterText;
 	public int rangeCount=2;
 	public Vector3 tempPos;
@@ -17,8 +17,6 @@ public class characterBehaviour : MonoBehaviour {
 
 	void start()
 	{
-		SetBombCountText();
-		SetRangeCountText ();
 
 	}
 
@@ -26,7 +24,6 @@ public class characterBehaviour : MonoBehaviour {
 	void Update()
 	{
 		//triggerBomb ();
-        
 		/*cloneDown.GetComponent<explosionScript>().explodeDown();
 		cloneUp.GetComponent<explosionScript>().explodeUp();
 		cloneRight.GetComponent<explosionScript>().explodeRight();
@@ -87,16 +84,21 @@ public class characterBehaviour : MonoBehaviour {
 		}
 
 	//Functon for Bomb GUI
-	void SetBombCountText ()
+	void SetBombCountText()
 	{
-		bombCountText.text = "Bombs: " + bombCount.ToString ();
+		Debug.Log("called");
+		bombCountText.text = "Bombs: " + bombCount.ToString();
 	}
 
 	//Functoin for Range GUI
-	void SetRangeCountText ()
+	void SetRangeCountText()
 	{
 		int actualRange = rangeCount - 1;
-		rangeCounterText.text = "Bomb Range: " + actualRange.ToString ();
+		rangeCounterText.text = "Bomb Range: " + actualRange.ToString();
+	}
+	void OnGUI(){
+		bombCountText.text = "Bombs: " + bombCount.ToString();
+		SetRangeCountText();
 	}
 
 }
