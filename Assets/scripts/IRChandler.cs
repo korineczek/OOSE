@@ -44,7 +44,7 @@ public class IRChandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
+        Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
         //Debug.Log(myJob.rawData);
         //Debug.Log(myJob.name +" "+myJob.command);
         
@@ -98,6 +98,8 @@ public class IRChandler : MonoBehaviour
             StopAllCoroutines();
             Debug.Log("DISCONNECTED");
         }
+
+        // P1 KEYBOARD
         if (Input.GetKeyUp("w"))
         {
             //Debug.Log("Moving Up");
@@ -122,6 +124,32 @@ public class IRChandler : MonoBehaviour
         {
             //Debug.Log("Moving Up");
             GameObject.FindWithTag("Player1").GetComponent<characterBehaviour>().triggerBomb();
+        }
+        //P2 KEYBOARD CONTROLS
+        if (Input.GetKeyUp("i"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player2").GetComponent<Movement>().moveUp();
+        }
+        if (Input.GetKeyUp("k"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player2").GetComponent<Movement>().moveDown();
+        }
+        if (Input.GetKeyUp("j"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player2").GetComponent<Movement>().moveLeft();
+        }
+        if (Input.GetKeyUp("l"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player2").GetComponent<Movement>().moveRight();
+        }
+        if (Input.GetKeyUp("m"))
+        {
+            //Debug.Log("Moving Up");
+            GameObject.FindWithTag("Player2").GetComponent<characterBehaviour>().triggerBomb();
         }
     }
 

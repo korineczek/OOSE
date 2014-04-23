@@ -30,7 +30,7 @@ public class explosionScript : MonoBehaviour {
 	//Destroy Cubes and Player on Collision
 	public void OnCollisionEnter (Collision col)
 	{
-		if(col.gameObject.tag == "Player1")
+        if (col.gameObject.tag == "Player1" || col.gameObject.tag == "Player2")
 		{
 			Destroy(col.gameObject);
 		}
