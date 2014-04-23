@@ -4,45 +4,49 @@ using System.Collections;
 public class explosionScript : MonoBehaviour {
 
 	public int explodeTimer;
-    public float speed;
-    private Vector3 startPos;
-    private float distance;
-    characterBehaviour player;
+    public bool wallHit;
+    
+    
+    //public float speed;
+    //private Vector3 startPos;
+    //private float distance;
+ //   characterBehaviour player;
 
-	void Start ()
+	public void Start ()
 	{
-        startPos = transform.position;
+       // startPos = transform.position;
 		Destroy (gameObject, explodeTimer);
-        player = GameObject.FindWithTag("Player1").GetComponent<characterBehaviour>();
+   //     player = GameObject.FindWithTag("Player1").GetComponent<characterBehaviour>();
   
 	}
 
 	
 	// Update is called once per frame
-    void Update()
+   public  void Update()
     {
-    }
+        
+    
+   }
 	//Destroy Cubes and Player on Collision
-	void OnCollisionEnter (Collision col)
+	public void OnCollisionEnter (Collision col)
 	{
 		if(col.gameObject.tag == "Player1")
 		{
-			Destroy(col.gameObject,1);
-		}
-		if(col.gameObject.tag == "DestructableCube")
-		{
-			rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
-			rigidbody.constraints = RigidbodyConstraints.FreezePositionY;
-			rigidbody.constraints = RigidbodyConstraints.FreezePositionX;
 			Destroy(col.gameObject);
-            Destroy(gameObject,1);
 		}
+        if (col.gameObject.tag == "DestructableCube")
+        {
+            Destroy(col.gameObject);
+            Destroy(gameObject, explodeTimer);
+        }
+
 		if(col.gameObject.tag == "Wall")
 		{
-			Destroy(gameObject,1);
+            wallHit = true;
+			Destroy(gameObject);
 		}
 	}
-    public void explodeRight()
+ /*   public void explodeRight()
     {
         rigidbody.constraints = RigidbodyConstraints.FreezePositionZ;
         transform.position = Vector3.MoveTowards(transform.position, transform.position + new Vector3(2, 0, 0), Time.deltaTime * speed);
@@ -73,5 +77,5 @@ public class explosionScript : MonoBehaviour {
         distance = Vector3.Distance(startPos, transform.position);
         if (distance > player.rangeCount-1)
             Destroy(gameObject);
-    }
+    }*/
 }
