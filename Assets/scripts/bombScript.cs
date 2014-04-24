@@ -11,6 +11,7 @@ public class bombScript : MonoBehaviour
     public bool up, up2, up3, down, down2, down3, left, left2, left3, right, right2, right3;
     RaycastHit hit;
     int range;
+	private bool Quitting;
 
     void Awake()
     {
@@ -20,6 +21,7 @@ public class bombScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		Quitting = false;
         checkCollision();
         currentTurn = GameObject.FindWithTag("Handler").GetComponent<IRChandler>().currentTurn;
         explosionTurn = currentTurn + turnsToExplosion;
@@ -37,8 +39,13 @@ public class bombScript : MonoBehaviour
             Destroy(gameObject);
         }
     }
+	void OnApplicationQuit(){
+		
+		Quitting = true;
+	}
     void OnDestroy()
     {
+		if(Quitting == false){
         Instantiate(explosionPrefab, transform.position, transform.rotation);
 
         for (int i = 1; i < range; i++)
@@ -91,6 +98,7 @@ public class bombScript : MonoBehaviour
                 
             else if (l == 3 && left3 == true)
                 l = range;
+			}
         }
     }
 
