@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
         // Check for collisions above
         if (Physics.Raycast(transform.position, Vector3.forward, out hit, 1.0f))
         {
-			if (hit.distance < 1.0f && hit.transform.gameObject.tag != "BombPickup"){
+			if (hit.distance < 1.0f && (hit.transform.gameObject.tag != "BombPickup" && hit.transform.gameObject.tag != "RangePickup")){
 			    up = true;
 				}
             else
@@ -43,7 +43,7 @@ public class Movement : MonoBehaviour
         // Check for collisions below
         if (Physics.Raycast(transform.position, Vector3.back, out hit, 1.0f))
         {
-			if (hit.distance < 1.0f && hit.transform.gameObject.tag != "BombPickup")
+			if (hit.distance < 1.0f && (hit.transform.gameObject.tag != "BombPickup" && hit.transform.gameObject.tag != "RangePickup"))
             {
                 down = true;
 
@@ -61,7 +61,7 @@ public class Movement : MonoBehaviour
         // Check for collisions to the left
         if (Physics.Raycast(transform.position, Vector3.left, out hit, 1.0f))
         {
-			if (hit.distance < 1.0f && hit.transform.gameObject.tag != "BombPickup")
+				if (hit.distance < 1.0f && (hit.transform.gameObject.tag != "BombPickup" && hit.transform.gameObject.tag != "RangePickup"))
             {
                 left = true;
 
@@ -79,7 +79,7 @@ public class Movement : MonoBehaviour
         // Check for collisions to the right
         if (Physics.Raycast(transform.position, Vector3.right, out hit, 1.0f))
         {
-			if (hit.distance < 1.0f && hit.transform.gameObject.tag != "BombPickup")
+			if (hit.distance < 1.0f && (hit.transform.gameObject.tag != "BombPickup" && hit.transform.gameObject.tag != "RangePickup"))
             {
                 right = true;
 
