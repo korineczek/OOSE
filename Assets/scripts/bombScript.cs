@@ -6,7 +6,7 @@ public class bombScript : MonoBehaviour
 
     public int explosionTurn;
     int currentTurn;
-    int turnsToExplosion = 2;
+    int turnsToExplosion = 12;
     public GameObject explosionPrefab;
     public bool up, up2, up3, down, down2, down3, left, left2, left3, right, right2, right3;
     RaycastHit hit;

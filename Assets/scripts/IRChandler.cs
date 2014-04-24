@@ -151,6 +151,12 @@ public class IRChandler : MonoBehaviour
             //Debug.Log("Moving Up");
             GameObject.FindWithTag("Player2").GetComponent<characterBehaviour>().triggerBomb();
         }
+
+
+        if (Input.GetKeyUp("x"))
+        {
+            Application.LoadLevel(Application.loadedLevel);
+        }
     }
 
     IEnumerator Execute()
@@ -250,7 +256,7 @@ public class IRChandler : MonoBehaviour
 
             // Increment turn and wait 5s to end the turn
             currentTurn++;
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
