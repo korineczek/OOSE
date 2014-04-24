@@ -6,11 +6,13 @@ public class BuffSpawn : MonoBehaviour {
 	private float x;
 	private float y;
 	private float z;
+	private bool Quitting;
 
 
 	// Use this for initialization
 	void Start () {
 
+		Quitting = false;
 		x = transform.position.x;
 		y = transform.position.y;
 		z = transform.position.z;
@@ -22,12 +24,17 @@ public class BuffSpawn : MonoBehaviour {
 	void Update () {
 	
 	}
-	void OnDestroy() {
+	void OnApplicationQuit(){
 
+		Quitting = true;
+	}
+
+	void OnDestroy() {
+		if(Quitting == false){
 		if(Random.Range(0,4)>=3){
 			Instantiate(buff1, new Vector3(x,y,z), Quaternion.identity);
+			}
 		}
-
 
 	}
 }
