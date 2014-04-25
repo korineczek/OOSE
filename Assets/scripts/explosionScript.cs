@@ -28,10 +28,19 @@ public class explosionScript : MonoBehaviour {
     
    }
 	//Destroy Cubes and Player on Collision
+   public void OnTriggerEnter(Collider col)
+   {
+       if (col.gameObject.tag == "bomb")
+       {
+           Destroy(col.gameObject);
+       }
+   }
+
 	public void OnCollisionEnter (Collision col)
 	{
         if (col.gameObject.tag == "Player1" || col.gameObject.tag == "Player2")
 		{
+            Debug.Log(col.gameObject.tag);
 			Destroy(col.gameObject);
 		}
         if (col.gameObject.tag == "DestructableCube")
