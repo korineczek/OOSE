@@ -1,4 +1,45 @@
-11/04/2014 - v0.3 - CURRENT VERSION
+28/04/2014 - v1.0 - CURRENT VERSION
+Changelog
+---------------------
+
+FIRST RELEASE VERSION
+---------------------
+
+MAJOR
+---------------------
+Game is now in a playable state, both characters can be controlled, 95% of the game mechanics are in place.
+
+HOW TO SET UP
+---------------------
+The game is a bomberman-like game controlled via IRC chat. The game can be set up on any IRC channel, even
+though it is optimized for twitch.tv IRC channels.
+
+In order to set up the IRC bot that passes the commands, it is necessary to input the credentials into the
+IRChandler.cs script. IRChandler takes care of all command acquisition and parsing from the IRC and subsequently
+allows the game to be played.
+
+Once the bot is set up, the game can be launched.
+Once the game is launched, it is advisable to wait a few seconds before inputting any commands, since the bot
+is connecting to the IRC at that point.
+
+HOW TO PLAY
+---------------------
+Once the game is initialized, it is ready to play. To start playing, the players have to join a team of their choice first.
+That is done by using the command "joinred" or joinblue". Once assigned, other commands are unlocked. These are:
+
+up
+down
+left
+right
+bomb
+
+These input commands are sent to the IRChandler where they are executed every second, making for a turn-based
+game.
+---------------------
+
+
+
+11/04/2014 - v0.3
 Changelog
 ---------------------
 
