@@ -11,9 +11,6 @@ Game is now in a playable state, both characters can be controlled, 95% of the g
 
 HOW TO SET UP
 ---------------------
-Visit
-http://420bombit.wikia.com
----------------------
 The game is a bomberman-like game controlled via IRC chat. The game can be set up on any IRC channel, even though it is optimized for twitch.tv IRC channels.
 
 In order to set up the IRC bot that passes the commands, it is necessary to input the credentials into the IRChandler.cs script. IRChandler takes care of all command acquisition and parsing from the IRC and subsequently allows the game to be played.
