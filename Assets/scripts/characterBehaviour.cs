@@ -3,12 +3,11 @@ using System.Collections;
 
 public class characterBehaviour : MonoBehaviour {
 
-	//public GUIText bombCountText;
-	public int bombCount=1;
-	//public GUIText rangeCounterText;
+    public GameObject player;
+    public int bombCount=1;
 	public int rangeCount=2;
 	public Vector3 tempPos;
-	public bool test1;
+	public bool p1, p2;
 
 	public Rigidbody bombPrefab;
 	
@@ -38,6 +37,17 @@ public class characterBehaviour : MonoBehaviour {
 	IEnumerator currentBombs()
 	{
 		Instantiate (bombPrefab, transform.position, transform.rotation);
+        if (player.tag == "Player1")
+        {
+            p1 = true;
+            p2 = false;
+        }
+        else if (player.tag == "Player2")
+        {
+            p1 = false;
+            p2 = true;
+        }
+
 		tempPos = transform.position;
 		bombCount = bombCount -1;
 		//SetBombCountText();
