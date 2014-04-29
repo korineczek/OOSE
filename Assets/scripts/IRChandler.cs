@@ -12,6 +12,7 @@ public class IRChandler : MonoBehaviour
     //public Movement playerControls;
 
     public string action;
+    public int redplayers, blueplayers;
 
     // Democracy mode
     float democracyStart;
@@ -44,6 +45,8 @@ public class IRChandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        redplayers = myJob.numberofredplayers;
+        blueplayers = myJob.numberofblueplayers;
         Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
         //Debug.Log(myJob.rawData);
         //Debug.Log(myJob.name +" "+myJob.command);
