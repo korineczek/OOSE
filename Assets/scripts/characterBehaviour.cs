@@ -7,9 +7,10 @@ public class characterBehaviour : MonoBehaviour {
     public int bombCount=1;
 	public int rangeCount=2;
 	public Vector3 tempPos;
-	public bool p1, p2;
+    public bool p1 = false;
+    public bool p2 = false;
 
-	public Rigidbody bombPrefab;
+	public GameObject bombPrefab;
 	
 	void start()
 	{
@@ -19,6 +20,7 @@ public class characterBehaviour : MonoBehaviour {
 
 	void Update()
 	{
+       // Debug.Log(p1 + " " + p2);
 	}
 
 
@@ -36,14 +38,19 @@ public class characterBehaviour : MonoBehaviour {
 	//Code for the bomb spawn and the amount available
 	IEnumerator currentBombs()
 	{
-		Instantiate (bombPrefab, transform.position, Quaternion.identity);
+        
+		GameObject bomb = Instantiate (bombPrefab, transform.position, Quaternion.identity) as GameObject;
+        Debug.Log(bomb);
+        bomb.GetComponent<bombScript>().placer = gameObject.GetComponent<characterBehaviour>();
         if (player.tag == "Player1")
         {
+            Debug.Log("Bomb Down p1");
             p1 = true;
             p2 = false;
         }
         else if (player.tag == "Player2")
         {
+            Debug.Log("Bomb Down p2");
             p1 = false;
             p2 = true;
         }
@@ -52,6 +59,7 @@ public class characterBehaviour : MonoBehaviour {
 		bombCount = bombCount -1;
 		//SetBombCountText();
 		yield return new WaitForSeconds(12);
+
 		bombCount = bombCount+1;
 		//SetBombCountText();
 
