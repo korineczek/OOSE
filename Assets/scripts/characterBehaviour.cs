@@ -36,7 +36,7 @@ public class characterBehaviour : MonoBehaviour {
 	//Code for the bomb spawn and the amount available
 	IEnumerator currentBombs()
 	{
-		Instantiate (bombPrefab, transform.position, transform.rotation);
+		Instantiate (bombPrefab, transform.position, Quaternion.identity);
         if (player.tag == "Player1")
         {
             p1 = true;

@@ -49,20 +49,20 @@ public class generateBOXESlol : MonoBehaviour
 		switch (spawnnumber)
 		{
 		case 0:
-			Instantiate(player1, new Vector3(1, 1, 1), Quaternion.identity);
-			Instantiate(player2, new Vector3(maxh - 1, 1, maxw - 1), Quaternion.identity);
+			Instantiate(player1, new Vector3(1, 1, 1), Quaternion.Euler(0, 180, 0));
+			Instantiate(player2, new Vector3(maxh - 1, 1, maxw - 1), Quaternion.Euler(0, 180, 0));
 			break;
 		case 1:
-			Instantiate(player1, new Vector3(maxh - 1, 1, 1), Quaternion.identity);
-			Instantiate(player2, new Vector3(1, 1, maxw - 1), Quaternion.identity);
+			Instantiate(player1, new Vector3(maxh - 1, 1, 1), Quaternion.Euler(0, 180, 0));
+			Instantiate(player2, new Vector3(1, 1, maxw - 1), Quaternion.Euler(0, 180, 0));
 			break;
 		case 2:
-			Instantiate(player1, new Vector3(1, 1, maxw - 1), Quaternion.identity);
-			Instantiate(player2, new Vector3(maxh - 1, 1, 1), Quaternion.identity);
+			Instantiate(player1, new Vector3(1, 1, maxw - 1), Quaternion.Euler(0, 180, 0));
+			Instantiate(player2, new Vector3(maxh - 1, 1, 1), Quaternion.Euler(0, 180, 0));
 			break;
 		case 3:
-			Instantiate(player2, new Vector3(1, 1, 1), Quaternion.identity);
-			Instantiate(player1, new Vector3(maxh - 1, 1, maxw - 1), Quaternion.identity);
+			Instantiate(player2, new Vector3(1, 1, 1), Quaternion.Euler(0, 180, 0));
+			Instantiate(player1, new Vector3(maxh - 1, 1, maxw - 1), Quaternion.Euler(0, 180, 0));
 			break;
 		default:
 			break;
