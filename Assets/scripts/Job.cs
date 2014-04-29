@@ -54,17 +54,6 @@ public class Job : ThreadedJob
     {
     }
 
-    public global::explosionScript explosionScript
-    {
-        get
-        {
-            throw new System.NotImplementedException();
-        }
-        set
-        {
-        }
-    }
-
     protected override void ThreadFunction()
     {
 

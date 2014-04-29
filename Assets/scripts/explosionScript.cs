@@ -42,7 +42,6 @@ public class explosionScript : MonoBehaviour {
 		{
             Debug.Log(col.gameObject.tag);
 			Destroy(col.gameObject);
-            GameObject.FindWithTag("Handler").GetComponent<IRChandler>().gameOver = true;
 		}
         if (col.gameObject.tag == "DestructableCube")
         {

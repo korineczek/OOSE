@@ -8,9 +8,6 @@ public class IRChandler : MonoBehaviour
 
     // Variable declaration
     Job myJob;
-    public bool gameOver;
-    float restartTime = float.MaxValue;
-    private float currentTime;
 
     //public Movement playerControls;
 
@@ -28,8 +25,8 @@ public class IRChandler : MonoBehaviour
 
     void Start()
     {
+
         
-        gameOver = false;
 
         // Define and start second thread containing the IRC bot.
         myJob = new Job();
@@ -48,23 +45,9 @@ public class IRChandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentTime = Time.time;
-       
-        if (gameOver == true)
-        {
-            
-            restartTime = Time.time + 3.0f;
-            gameOver = false;
-
-            
-        }
-        if (currentTime > restartTime)
-        {
-            Application.LoadLevel(Application.loadedLevel);
-        }
         redplayers = myJob.numberofredplayers;
         blueplayers = myJob.numberofblueplayers;
-        // Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
+        Debug.Log(myJob.numberofredplayers + " " + myJob.numberofblueplayers);
         //Debug.Log(myJob.rawData);
         //Debug.Log(myJob.name +" "+myJob.command);
         
