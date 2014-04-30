@@ -3,13 +3,8 @@ using System.Collections;
 
 public class characterBehaviour : MonoBehaviour {
 
-    public GameObject player;
     public int bombCount=1;
 	public int rangeCount=2;
-	public Vector3 tempPos;
-    public bool p1 = false;
-    public bool p2 = false;
-
 	public GameObject bombPrefab;
 	
 	void start()
@@ -20,63 +15,43 @@ public class characterBehaviour : MonoBehaviour {
 
 	void Update()
 	{
-       // Debug.Log(p1 + " " + p2);
 	}
 
 
 	//Code for triggering spawn
 	public void triggerBomb()
 	{
-			if (bombCount > 0)
+			if (bombCount > 0)                                                                                  //if bombCount is above 0
 		{
 			
-				StartCoroutine(currentBombs());
+				StartCoroutine(currentBombs());                                                                 //The IEnumerator currentBombs is run
 			
 		}
 	}
 
-	//Code for the bomb spawn and the amount available
+	//CODE FOR THE BOMB SPAWN AND THE AMOUNT AVAILABLE
 	IEnumerator currentBombs()
 	{
-        
-		GameObject bomb = Instantiate (bombPrefab, transform.position, Quaternion.identity) as GameObject;
-        Debug.Log(bomb);
-        bomb.GetComponent<bombScript>().placer = gameObject.GetComponent<characterBehaviour>();
-        if (player.tag == "Player1")
-        {
-            Debug.Log("Bomb Down p1");
-            p1 = true;
-            p2 = false;
-        }
-        else if (player.tag == "Player2")
-        {
-            Debug.Log("Bomb Down p2");
-            p1 = false;
-            p2 = true;
-        }
-
-		tempPos = transform.position;
-		bombCount = bombCount -1;
-		//SetBombCountText();
-		yield return new WaitForSeconds(12);
-
-		bombCount = bombCount+1;
-		//SetBombCountText();
+		GameObject bomb = Instantiate (bombPrefab, transform.position, Quaternion.identity) as GameObject;      //Spawns the bomb
+        bomb.GetComponent<bombScript>().placer = gameObject.GetComponent<characterBehaviour>();                 //sets the placer of the spawned bomb equal to the characterBehaviour script (to be used in the bombScript)
+		bombCount = bombCount -1;                                                                               //bombCount is subtracted by 1
+		yield return new WaitForSeconds(12);                                                                    //waits 12 seconds which is the time before the bomb explodes
+		bombCount = bombCount+1;                                                                                //sets the bombCount back up
 
 	}
 
-	//Code for collision with BombPickup
-	void OnTriggerEnter(Collider other)
+	//CODE FOR COLLISION WITH BUFFS
+	void OnTriggerEnter(Collider other)                                                                         //Checks if a trigger is entered
 	{
-				if (other.gameObject.tag == "BombPickup") {
-						Destroy (other.gameObject);
-						bombCount = bombCount + 1;
-						//SetBombCountText ();
+				if (other.gameObject.tag == "BombPickup")                                                       //If the collision is with a gameObject with the tag BombPickup
+                {     
+						Destroy (other.gameObject);                                                             //then the gameObject with that tag is destroyed
+						bombCount = bombCount + 1;                                                              //and bombCount is increased by 1
 				}
-				if (other.gameObject.tag == "RangePickup") {
-						Destroy (other.gameObject);
-						rangeCount = rangeCount + 1;
-						//SetRangeCountText ();
+				if (other.gameObject.tag == "RangePickup")                                                      //If the collision is with a gameObject with the tag RangePickup
+                {
+						Destroy (other.gameObject);                                                             //then the gameObject with that tag is destroyed
+						rangeCount = rangeCount + 1;                                                            //and the bombCount is increased by 1
 				}
 	}
 
