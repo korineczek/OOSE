@@ -7,7 +7,11 @@ public class IRChandler : MonoBehaviour
 {
 
     // Variable declaration
+
+    // Connect bot
     Job myJob;
+
+    //Game Over Variables
     public bool gameOver;
     float restartTime = float.MaxValue;
     private float currentTime;
@@ -50,6 +54,7 @@ public class IRChandler : MonoBehaviour
     {
         currentTime = Time.time;
 
+        // Check if game has ended already
         if (gameOver == true)
         {
 
@@ -64,6 +69,7 @@ public class IRChandler : MonoBehaviour
         }
 
 
+        // Monitor team distribution
 
         redplayers = myJob.numberofredplayers;
         blueplayers = myJob.numberofblueplayers;
@@ -122,7 +128,7 @@ public class IRChandler : MonoBehaviour
             Debug.Log("DISCONNECTED");
         }
 
-        // P1 KEYBOARD
+        // P1 KEYBOARD DEBUG ONLY
         if (Input.GetKeyUp("w"))
         {
             //Debug.Log("Moving Up");
@@ -148,7 +154,7 @@ public class IRChandler : MonoBehaviour
             //Debug.Log("Moving Up");
             GameObject.FindWithTag("Player1").GetComponent<characterBehaviour>().triggerBomb();
         }
-        //P2 KEYBOARD CONTROLS
+        //P2 KEYBOARD CONTROLS DEBUG ONLY
         if (Input.GetKeyUp("i"))
         {
             //Debug.Log("Moving Up");
@@ -175,20 +181,22 @@ public class IRChandler : MonoBehaviour
             GameObject.FindWithTag("Player2").GetComponent<characterBehaviour>().triggerBomb();
         }
 
-
+        // MANUAL LEVEL RESTART DEBUG ONLY
         if (Input.GetKeyUp("x"))
         {
             Application.LoadLevel(Application.loadedLevel);
         }
     }
 
+
+    // IRC commands parser
     IEnumerator Execute()
     {
         while (true)
         {
             if (myJob.redAction.Count > 0)
             {
-               
+               // Pick random command from array of commands for each team
                 string redAction = myJob.redAction[Random.Range(0, myJob.redAction.Count)];
                 string blueAction = myJob.blueAction[Random.Range(0, myJob.redAction.Count)];
                 
@@ -277,7 +285,7 @@ public class IRChandler : MonoBehaviour
                 myJob.blueTemp = null;
             }
 
-            // Increment turn and wait 5s to end the turn
+            // Increment turn and wait 1s to end the turn
             currentTurn++;
             yield return new WaitForSeconds(1.0f);
         }

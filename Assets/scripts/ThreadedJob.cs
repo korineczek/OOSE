@@ -1,4 +1,6 @@
-﻿public class ThreadedJob
+﻿// Multi-thread class, code found on StackOverflow. Enables the use of multiple threads in unity.
+
+public class ThreadedJob
 {
     private bool m_IsDone = false;
     private object m_Handle = new object();

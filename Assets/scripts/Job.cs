@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/* Job.cs is the IRC bot itself. It connects to a certain IRC stream, from which it gathers commands and passes them to IRChandler.cs
+ The bot runs on a separate thread to prevent freezing */
+
+
 // Declare player class
 public class Player
 {
@@ -14,7 +18,7 @@ public class Player
         team = allegiance;
     }
 }
-
+// Declare command class
 public class Command
 {
     public string command;
@@ -22,6 +26,7 @@ public class Command
 }
 
 
+// IRC bot
 public class Job : ThreadedJob
 {
     // Variables
@@ -45,7 +50,7 @@ public class Job : ThreadedJob
     public bool democracy;
     public int[] optionHistogram = { 0, 0, 0, 0 };
 
-    // TCP configuration, if not working, return it to ThreadFunction()
+    // TCP configuration
     public System.Net.Sockets.TcpClient sock = new System.Net.Sockets.TcpClient();
     public System.IO.TextReader input;
     public System.IO.TextWriter output;
@@ -54,6 +59,7 @@ public class Job : ThreadedJob
     {
     }
 
+    // IRC bot function
     protected override void ThreadFunction()
     {
 
@@ -98,6 +104,8 @@ public class Job : ThreadedJob
             // Search player lists to identify player allegiance
             isInTeamRed = teamRed.Find(item => item.name == name);
            
+
+            // Process players and assign them to teams based on their wish
             if (rawData == "joinred" || rawData == "joinblue")
             {
                 playerInput.command = rawData;
@@ -125,7 +133,7 @@ public class Job : ThreadedJob
 
             
 
-
+            // If assigned, continue processing commands that affect the gameplay
             if (playerInput.command != null)
             {
                 switch (playerInput.command)
@@ -185,6 +193,7 @@ public class Job : ThreadedJob
 
                         break;
 
+                        // In case democracy is on, parse democracy commands and execute
                     case "option1":
                         if (democracy == true)
                         {
@@ -253,12 +262,14 @@ public class Job : ThreadedJob
                         break;
 
 
-                    // Quit command to disconnect IRC via chat
+                    // Quit command to disconnect IRC via chat DEBUG ONLY
+                        /*
                     case "quit":
                         input.Close();
                         output.Close();
                         sock.Close();
                         return;
+                         */
                 }
             }
 
