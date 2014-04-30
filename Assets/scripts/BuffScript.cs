@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BuffScript : MonoBehaviour {
 
+	//This scripts only purpose is to destroy the buffs when you quit the application, this might be supject to change and be on reset instead. 
+
 	// Use this for initialization
 	void Start () {
 	
@@ -13,8 +15,8 @@ public class BuffScript : MonoBehaviour {
 	
 	}
 
-	void OnApplicationQuit(){
+	void OnApplicationQuit(){//Runs when the application is quitting.
 
-		Destroy(this.gameObject);
+		Destroy(this.gameObject);//Destroy the gameobject.
 	}
 }
